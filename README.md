@@ -2,6 +2,8 @@
 
 https://raw.githubusercontent.com/RodrigoMvs123/AWS-Project---Architect-and-Build-an-End-to-End-AWS-Web-Application-from-Scratch-Step-by-Step/main/README.md
 
+https://github.com/RodrigoMvs123/AWS-Project---Architect-and-Build-an-End-to-End-AWS-Web-Application-from-Scratch-Step-by-Step/blame/main/README.md
+
 https://www.youtube.com/watch?v=7m_q1ldzw0U 
 
 https://pages.awscloud.com/traincert-developer-hub.html?sc_channel=sm&sc_campaign=AWS_Training_and_Certification&sc_publisher=LINKEDIN&sc_country=AWS%20Training%20&%20Certification&sc_geo=GLOBAL&sc_outcome=adoption&trkCampaign=GLBL-FY21-TrainCert_OrganicSocial_LinkedIn_Developer&trk=1689c1a5-9024-4b68-ba54-5cb83bed71a0_LINKEDIN&sc_content=Developer&sc_category=AWS%20Training%20and%20Certification
