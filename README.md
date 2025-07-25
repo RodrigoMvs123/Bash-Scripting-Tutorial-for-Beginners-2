@@ -1,540 +1,1154 @@
-## AWS-Project---Architect-and-Build-an-End-to-End-AWS-Web-Application-from-Scratch-Step-by-Step
+## Bash Scripting Tutorial for Beginners 2  
 
-- https://raw.githubusercontent.com/RodrigoMvs123/AWS-Project---Architect-and-Build-an-End-to-End-AWS-Web-Application-from-Scratch-Step-by-Step/main/README.md
+49:00
 
-- https://github.com/RodrigoMvs123/AWS-Project---Architect-and-Build-an-End-to-End-AWS-Web-Application-from-Scratch-Step-by-Step/blame/main/README.md
+- https://www.youtube.com/watch?v=PNhq_4d-5ek 
 
-- https://www.youtube.com/watch?v=7m_q1ldzw0U 
+#### Setting Up 
 
-- https://pages.awscloud.com/traincert-developer-hub.html?sc_channel=sm&sc_campaign=AWS_Training_and_Certification&sc_publisher=LINKEDIN&sc_country=AWS%20Training%20&%20Certification&sc_geo=GLOBAL&sc_outcome=adoption&trkCampaign=GLBL-FY21-TrainCert_OrganicSocial_LinkedIn_Developer&trk=1689c1a5-9024-4b68-ba54-5cb83bed71a0_LINKEDIN&sc_content=Developer&sc_category=AWS%20Training%20and%20Certification
+# Bash on Windows
 
-### AWS Services Used
-- Aws Aplify
-- Aws Lambda
-- Amazon API Gateway
-- Amazon DynamoDB
-- Aws Identity and Access Management ( IAM )
+There are two main ways to set up and use Bash on a Windows system:
 
-### Application Requirements
-- A way to create/host web page
-- A way to invoke the math functionality 
-- A way to do some math
-- Somewhere to store/return the math result
-- A way to handle permissions
+---
 
-### A way to create/host web page
+#### 1. Windows Subsystem for Linux (WSL)
 
-#### The Application Architecture 
-Amplify
-Used to build and host websites ( but we will use a text editor to create a simple index.html page )
-
-#### Index.html ( File ) 
-```html
-<!DOCTYPE>
-<html>
-<head>
-       <meta charset="UTF-8">
-       <title>To the Power of Math</title>
-</head>
-
-<body> 
-       To the Power of Math!
-</body>
-</html>
+- Open **PowerShell as Administrator** and run:
+```bash
+wsl --install
 ```
 
-index.html
-index.zip
+This installs Ubuntu by default, which includes Bash. After installation, restart your computer. Open the Ubuntu application from your Start menu to access Bash.
 
-#### Aws Console
-Console Home
-Search ( Aws Amplify )
-New App
-Host web app
-Get started with Amplify Hosting
-From your existing code
-Deploy without git Provider
-Continue 
-Manual Deploy
-Start a manual deployment 
-App name ( PowerOfMath )
-Environment name ( dev )
-Drag and Drop ( - index.zip )
-Save and deploy
+#### 2. Git Bash
 
-#### PowerOfMath 
-The app homepage lists all deployed frontend and backend environments.
-Hosting environments
-This tab lists all connected branches, selecting a branch to view build details.
+Download and install Git for Windows from:
+- https://git-scm.com/download/win
 
-Dev
-      Deployment successfully completed
-      Domain https://dev.d26u2yadfw1boy.aplifyapp.com             Last deployment 
+During installation, accept the default options. After installation, you can use "Git Bash" from your Start menu.
 
-#### Aws Aplify 
-App settings
-Domain management 
+**Bash Terminal**
 
-### The Current Architecture 
-User 
-Web Page
-Amplify 
-Lambda ( Code that runs (serverlessly) upon some trigger
-
-#### Python Math Library
-
-Console Home
-Search ( Lambda )
-
-Functions                                                                Create function 
-Create function
-Author from scratch
-Basic information 
-Function name ( PowerOfMathFunction )
-Runtime ( Python 3.9 )                                 Create function
-
-#### PowerOfMathFunction
-Code source                ( Deploy )
-
-```python
-# import the JSON utility package
-import json
-# import the Python math library
-import math
-
-# define the handler function that the Lambda service will use an entry point
-def lambda_handler(event, context):
-
-# extract the two numbers from the Lambda service's event object
-    mathResult = math.pow(int(event['base']), int(event['exponent']))
-
-    # return a properly formatted JSON object
-    return {
-    'statusCode': 200,
-    'body': json.dumps('Your result is ' + str(mathResult))
-    }
+```bash
+$mkdir logs
+mkdir: logs: File exists
+$ls logs/
+application.log system.log
 ```
 
-Deploy 
-Successfully updated the function PowerOfMathFunction
-Test
-Configure test event 
-Configure test event
-Event name ( PowerOfMathFunction )
-Event JSON
-```json
-{
-       "base": 2,
-       "exponent": 3
-}
-```
-Save 
-Test 
-Test Event Name
-PowerOfMathFunction
-Response
-```json
-{
-       "statusCode":  200,
-       "body": "\" Your result is 8.0\" " 
-}
-```
-Function Logs
-…
-Request ID
-…
+#### Manual Log Analysis with Commands
 
-### A way to invoke the math functionality 
+```bash
+$cd logs
+$cat application.log
 
-#### The Application Architecture 
-User 
-Web Page
-Amplify 
-API Gateway ( Used to build, HTTP, REST and WebSocket APIs )
-Lambda ( Code that runs (serverlessly) upon some trigger
+... 
+    ERROR ... 
+        CRITICAL ...
+                FATAL ...
 
-Console Home
-Search ( API Gateway )
-API Gateway
-APIs                                                             
-Create API
-            Rest API ( Develop a REST API where you gain complete control over the request and response along with APIs management capabilities. )  
-Build
-Choose the protocol
-            REST
-Create new API
-New API
-Settings 
-API name ( PowerOfMathAPI )
-           Create API 
-Amazon API Gateway
-API: PowerOfMathAPI
-Resources
-/
-Actions ( Create Method )
-Post
-Post - Setup
-Choose the integration point for your new method.
-Integration type 
-Lambda Function 
-Use Lambda Proxy integration 
-Lambda Function
-PowerOfMathFunction
-Save
-Add Permission to Lambda Function
-You are about to give API Gateway permission to invoke your Lambda function. 
-Ok
+$grep "ERROR" application.log
 
-#### Cors origin resource sharing   
-Resources
-/
-POST 
-Actions
-Enable CORS
-Enable CORS and replace existing CORS headers
-Yes, replace existing values
-Resources
-/
-POST 
-Actions
-Applications
-Deploy API
-Choose a stage where your API will be deployed. For example, a test version of your API could be deployed to a stage named beta
-Deployment stage 
-[New Stage]
-Stage name
-dev
-Deploy 
+... 
+    ERROR ...
+    ERROR ...
+    ERROR ...
+    ERROR ...
 
-#### dev Stage Editor
-Invoke URL: https://xs7a22nv22.execute-api-us-west-2-amazonaws.com/dev ( API Gateway )
+$grep -c "ERROR" application.log
+4
 
-Resources
-/
-POST 
-POST - Method Execution
-Test ->
-Method Request 
-Auth NONE
-Arn …
-Integration Request 
-Type: LAMBDA
-Region: us-west-2
-Integration Response
-HTTP status pattern
-Output passthrough: No
-Method Response 
-HTTP Status: 200
-Models: application/json => Empty
-Client  <-
+$grep -c "FATAL" application.log
+2
 
-Test
-Post Method Test
-Request Body
-```json
-{
-       "base": 2,
-       "exponent": 4
-}
-```
-Test
+$grep -c "CRITICAL" application.log
+1
 
-Request: /
-Status: 200
-Latency: 234 ms
-ResponseBody
-```json
-{
-     "statusCode":  200,
-      "body": "\" Your result is 16.0\" " 
+$grep -c "ERROR" system.log
+1
 
-}
-```
-Response Headers
-..
-Logs
-…
+$grep -c "FATAL" system.log
+2
 
-### The Application Architecture 
-User 
-Web Page
-Amplify 
-API Gateway ( Used to build, HTTP, REST and WebSocket APIs )
-Lambda ( Code that runs (serverlessly) upon some trigger
-IAM ( Set permissions on the execution role for Lambda )
-DynamoDB ( A key-value "NoSQL" database )
+$grep -c "ERROR" system.log
+2
 
-Console Home
-Search ( DynamoDB )
-Dashboard
-Create Resources 
-Create Table
-Table details
-Table name
-PowerOfMathDatabase
-Partition key
-ID
-Create Table 
-Tables
-PowerOfMathDatabase
-General Information
-Additional info 
-Amazon Resource Name (ARN ) 
-arn:aws-dynamodb-us-west-2:324712927967-table/PowerOfMathDatabase
-
-#### Lambda UI 
-Code
-Test Event Name
-PowerOfMathFunction
-Response
-```json
-{
-       "statusCode":  200,
-       "body": "\" Your result is 8.0\" " 
-}
-```
-Function Logs
-…
-Request ID
-…
-Configuration 
-Permissions
-Execution role
-Role name
-PowerOfMathFunction-role-m63i6i95
-Summary
-Permissions 
-Add permissions
-Create inline policy
-Create policy
-JSON
-```json
-{
-"Version": "2012-10-17",
-"Statement": [
-    {
-        "Sid": "VisualEditor0",
-        "Effect": "Allow",
-        "Action": [
-            "dynamodb:PutItem",
-            "dynamodb:DeleteItem",
-            "dynamodb:GetItem",
-            "dynamodb:Scan",
-            "dynamodb:Query",
-            "dynamodb:UpdateItem"
-        ],
-        "Resource": "arn:aws-dynamodb-us-west-2:324712927967-table/PowerOfMathDatabase
-"
-    }
-    ]
-}
+$grep -c "CRITICAL" system.log
+0
 ```
 
-Review policy
-Name
-PowerOfMathDynamoPolice
-Create policy
+#### Logs files that has been updated in the last 24 hours
 
-#### Lambda UI
-PowerOfMathFunction
-Code source                ( Deploy )
-
-```python
-# import the JSON utility package
-import json
-# import the Python math library
-import math
-
-# import the AWS SDK (for Python the package name is boto3)
-import boto3
-# import two packages to help us with dates and date formatting
-from time import gmtime, strftime
-
-# create a DynamoDB object using the AWS SDK
-dynamodb = boto3.resource('dynamodb')
-# use the DynamoDB object to select our table
-table = dynamodb.Table('PowerOfMathDatabase')
-# store the current time in a human readable format in a variable
-now = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-
-# define the handler function that the Lambda service will use an entry point
-def lambda_handler(event, context):
-
-# extract the two numbers from the Lambda service's event object
-    mathResult = math.pow(int(event['base']), int(event['exponent']))
-
-# write result and time to the DynamoDB table using the object we instantiated and save response in a variable
-    response = table.put_item(
-        Item={
-            'ID': str(mathResult),
-            'LatestGreetingTime':now
-            })
-
-# return a properly formatted JSON object
-    return {
-    'statusCode': 200,
-    'body': json.dumps('Your result is ' + str(mathResult))
-    }
+```bash
+$ find . -name *.log -mtime -1
+find: system.log: unknown primary or operator 
+$ find . -name "*.log" -mtime -1
+/system.log
+/application.log
 ```
 
-Deploy 
-Successfully updated the function PowerOfMathFunction
-Test
-```json
-{
-       "base": 2,
-       "exponent": 3
-}
-```
-Save 
-Test 
-Test Event Name
-PowerOfMathTestEvent
-Response
-```json
-{
-       "statusCode":  200,
-       "body": "\" Your result is 8.0\" " 
-}
-```
-Function Logs
-…
-Request ID
-…
+Command Breakdowns
 
-#### DynamoDB UI
-PowerOfMathDatabase
-Explore table items
-Items returned
-8.0 Thu, 23 jun 2022 00:25:22 + 0000
+> find . -name "*.log" -mtime -1
+Find all .log files modified in the last 24 hours.
 
-### Complete Web Application
+> grep "ERROR" application.log
+Search for the keyword ERROR in application.log.
 
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>To the Power of Math!</title>
-    <!-- Styling for the client UI -->
-    <style>
-    h1 {
-        color: #FFFFFF;
-        font-family: system-ui;
-		margin-left: 20px;
-        }
-	body {
-        background-color: #222629;
-        }
-    label {
-        color: #86C232;
-        font-family: system-ui;
-        font-size: 20px;
-        margin-left: 20px;
-		margin-top: 20px;
-        }
-     button {
-        background-color: #86C232;
-		border-color: #86C232;
-		color: #FFFFFF;
-        font-family: system-ui;
-        font-size: 20px;
-		font-weight: bold;
-        margin-left: 30px;
-		margin-top: 20px;
-		width: 140px;
-        }
-	 input {
-        color: #222629;
-        font-family: system-ui;
-        font-size: 20px;
-        margin-left: 10px;
-		margin-top: 20px;
-		width: 100px;
-        }
-    </style>
-    <script>
-        // callAPI function that takes the base and exponent numbers as parameters
-        var callAPI = (base,exponent)=>{
-            // instantiate a headers object
-            var myHeaders = new Headers();
-            // add content type header to object
-            myHeaders.append("Content-Type", "application/json");
-            // using built in JSON utility package turn object to string and store in a variable
-            var raw = JSON.stringify({"base":base,"exponent":exponent});
-            // create a JSON object with parameters for API call and store in a variable
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
-            // make API call with parameters and use promises to get response
-            fetch("https://xs7a22nv22.execute-api-us.west-2.amazonaws.com/dev", requestOptions)
-            .then(response => response.text())
-            .then(result => alert(JSON.parse(result).body))
-            .catch(error => console.log('error', error));
-        }
-    </script>
-</head>
-<body>
-    <h1>TO THE POWER OF MATH!</h1>
-	<form>
-        <label>Base number:</label>
-        <input type="text" id="base">
-        <label>...to the power of:</label>
-        <input type="text" id="exponent">
-        <!-- set button onClick method to call function we defined passing input values as parameters -->
-        <button type="button" onclick="callAPI(document.getElementById('base').value,document.getElementById('exponent').value)">CALCULATE</button>
-    </form>
-</body>
-</html>
+> grep -c "ERROR" application.log
+Count how many times ERROR appears in application.log.
+
+> grep -c "FATAL" application.log
+Count how many times FATAL appears in application.log.
+
+> grep -c "FATAL" system.log
+Count how many times FATAL appears in system.log.
+
+> grep -c "CRITICAL" system.log
+Count how many times CRITICAL appears in system.log.
+
+> grep "CRITICAL" system.log
+Search for the keyword CRITICAL in system.log.
+
+## Introduction to Shell Script
+> Logic defined once
+
+> Run with a **single command**
+
+> **No manual** repetition
+
+> **Automates** repetitive tasks
+
+> Ensures **consistent execution**
+
+> Suports **error handling** 
+
+> Act as **process documentation**
+
+```bash
+touch analyse-logs.sh
+
+vim analyse-logs.sh
+
+find . -name "*.log" -mtime -1
+grep "ERROR" application.log
+grep -c "ERROR" application.log
+grep -c "FATAL" application.log
+grep -c "FATAL" system.log
+grep -c "CRITICAL" system.log
+grep "CRITICAL" system.log
+
+~
+~
+~
+~
+~
+~
+~
+
+I ( Insert Mode)
+Esc
+:wq ( Enter )
 ```
 
-#### Amplify UI
-PowerOfMath
-Index.zip ( Drop file here )
-Domain
-https://dev.d26u2yadfw1boy.apliflyapp.com
+Command Breakdowns
 
-TO THE POWER OF MATH
-Base number: 2   …to the power of:   8   CAUCULATE
-"Your result is 256.0"
+> find . -name "*.log" -mtime -1
+Find all .log files modified in the last 24 hours.
 
-### Shut Down Your Resources
+> grep "ERROR" application.log
+Search for the keyword ERROR in application.log.
 
-#### Amplify UI
-Actions
-Delete app
-Delete your app ?
-To confirm you want to delete app type delete in the field. 
-Delete
-Delete
+> grep -c "ERROR" application.log
+Count how many times ERROR appears in application.log.
 
-#### DynamoDB
-Tables
-PowerOfMathDatabase
-Delete
-Delete table
-To confirm the deletion of this table. type delete in the box. 
-Delete
-Delete table
+> grep -c "FATAL" application.log
+Count how many times FATAL appears in application.log.
 
-#### Lambda UI
-Functions
-PowerOfMathFunction
-Actions 
-To confirm deletion. type delete in the field.
-Delete
-Delete
-Close
+> grep -c "FATAL" system.log
+Count how many times FATAL appears in system.log.
 
-#### Amazon API Gateway 
-APIs
-PowerOfMath
-Actions
-Delete
-Delete API
-Permanently delete the PowerOfMathAPI API?
-This actions can´t be undone. Clientes will no longer to be able to reach its endpoints.
-Delete
+> grep -c "CRITICAL" system.log
+Count how many times CRITICAL appears in system.log.
+
+> grep "CRITICAL" system.log
+Search for the keyword CRITICAL in system.log.
+
+```bash
+$ ./analyse-logs.sh: Permition definied
+$ chmod +x analyse-logs.sh
+$ ./analyse-logs.sh   
+/system.log
+/application.log
+    ERROR ...
+    ERROR ...  
+    ERROR ...
+    ERROR ...
+...
+4
+2
+1
+1
+2
+2
+0
+...
+```
+
+Command Breakdown
+> touch analyse-logs.sh
+Create a new, empty file named analyse-logs.sh.
+
+> vim analyse-logs.sh
+Open the script in the vim editor to add your Bash commands.
+
+> ./analyse-logs.sh
+Attempt to run the script, may result in a, Permission denied, error if it's not executable yet.
+
+> chmod +x analyse-logs.sh
+Grant execute permission to the file.
+
+> chmod
+Changes file permissions.
+
+> +x
+Adds the execute permission.
+
+> analyse-logs.sh
+The target script file.
+
+#### File Extension and Shebang Statement
+
+analyse-logs.sh
+
+```bash
+#!/bin/bash ( Shebang for Bash scripts )
+#!/bin/sh   ( Shebang for POSIX shell scripts )
+```
+
+#### Formatting and Readability Improvements
+
+```bash
+$ cat analyse-logs.sh
+
+find . -name "*.log" -mtime -1
+
+grep "ERROR" application.log
+grep -c "ERROR" application.log
+grep -c "FATAL" application.log
+
+grep -c "FATAL" system.log
+grep -c "CRITICAL" system.log
+grep "CRITICAL" system.log
+```
+
+**echo command** 
+"echo" is a built-in command used to print text or variables to the terminal ( standard output ).
+
+```bash 
+$ vim analyse-logs.sh
+#!/bin/bash
+
+echo "analysing log files"
+echo "==================="
+
+echo "List of log files updated in the last 24 hours"
+find . -name "*.log" -mtime -1
+
+echo "searching ERROR logs in application.log file"
+grep "ERROR" application.log
+
+echo "Number of ERRORS logs found in application.log"
+grep -c "ERROR" application.log
+
+echo "Number of FATAL logs found in application.log"
+grep -c "FATAL" application.log
+
+echo "Number of ERRORS logs found in application.log"
+grep -c "FATAL" system.log
+
+echo "Number of CRITICAL logs found in system.log"
+grep -c "CRITICAL" system.log
+
+echo "CRITICAL logs in system.log"
+grep "CRITICAL" system.log
+~
+~
+~
+~
+~
+~
+~
+~
+
+I ( Insert Mode)
+Esc
+:wq ( Enter )
+``` 
+
+```bash
+$ ./analyse-logs.sh
+analysing log files
+===================
+List of log files updated in the last 24 hours
+./system.log
+./application.log
+searching ERROR logs in application.log file 
+    ERROR ...
+    ERROR ...
+    ERROR ...
+    ERROR ...
+Number of ERRORS logs found in application.log
+4
+Number of FATAL logs found in application.log
+2
+Number of ERRORS logs found in application.log 
+1
+Number of CRITICAL logs found in system.log
+2
+```
+
+> echo -e "\n" -> add new line
+
+```bash
+$ $ vim analyse-logs.sh
+#!/bin/bash
+
+echo "analysing log files"
+echo "==================="
+
+echo -e "\nList of log files updated in the last 24 hours"
+find . -name "*.log" -mtime -1
+
+echo -e"\nsearching ERROR logs in application.log file"
+grep -c "ERROR" application.log
+
+echo -e "\nNumber of ERRORS logs found in application.log"
+grep -c "ERROR" application.log
+
+echo -e "\nNumber of FATAL logs found in application.log"
+grep -c "FATAL" application.log
+
+echo -e "\nNumber of ERRORS logs found in application.log"
+grep -c "FATAL" system.log
+
+echo -e "\nNumber of CRITICAL logs found in system.log"
+grep -c "CRITICAL" system.log
+
+echo -e "\nCRITICAL logs in system.log"
+grep -c "CRITICAL" system.log
+~
+~
+~
+~
+~
+~
+~
+~
+
+I ( Insert Mode)
+Esc
+:wq ( Enter )
+``` 
+
+```bash
+$ ./analyse-logs.sh
+analysing log files
+===================
+List of log files updated in the last 24 hours
+./system.log
+./application.log
+searching ERROR logs in application.log file
+    ERROR ...
+    ERROR ...
+    ERROR ...
+    ERROR ...
+Number of ERRORS logs found in application.log
+4
+Number of FATAL logs found in application.log
+2
+Number of ERRORS logs found in application.log
+1
+Number of CRITICAL logs found in system.log
+2
+CRITICAL logs in system.log
+    CRITICAL ...
+    CRITICAL ...
+    CRITICAL ...
+```
+
+#### Script improvement: Use Absolute Paths
+
+```bash
+$ ls
+application.log  analyse-logs.sh  system.log
+$ pwd
+/home/user/logs
+$ mv analyse-logs.sh /home/user/
+$ ls
+application.log system.log
+$ cd ..
+$ ./analyse-logs.
+
+find: ./.Trash: Operation not permitted
+
+searching ERROR logs in application.log file
+grep: application.log: No such file or directory
+
+Number of ERROR logs found in application.log
+grep: application.log: No such file or directory
+
+Number of FATAL logs found in application.log
+grep: application.log: No such file or directory
+
+Number of FATAL logs found in system.log
+grep: system.log: No such file or directory
+
+Number of CRITICAL logs found in system.log
+grep: system.log: No such file or directory
+
+CRITICAL logs in system.log file
+grep: system.log: No such file or directory
+
+$ vim analyse-logs.sh
+#!/bin/bash
+
+echo "analysing log files"
+echo "==================="
+
+echo -e "/nList of log files updated in the last 24 hours"
+find /home/user/logs -name "*.log" -mtime -1
+
+echo -e "/nsearching ERROR logs in application.log file"
+grep -c "ERROR" /home/user/logs/application.log
+
+echo -e "/nNumber of ERRORS logs found in application.log"
+grep -c "ERROR" /home/user/logs/application.log
+
+echo -e "/nNumber of FATAL logs found in application.log"
+grep -c "FATAL" /home/user/logs/application.log
+
+echo -e "/nNumber of ERRORS logs found in application.log"
+grep -c "FATAL" /home/user/logs/system.log
+
+echo -e "/nNumber of CRITICAL logs found in system.log"
+grep -c "CRITICAL" /home/user/logs/system.log
+
+echo -e "/nCRITICAL logs in system.log"
+grep -c "CRITICAL" /home/user/logs/system.log
+~
+~
+~
+~
+~
+~
+~
+~
+
+I ( Insert Mode)
+Esc
+:wq ( Enter )
+
+$ ./analyse-logs.
+analysing log files
+===================
+List of log files updated in the last 24 hours
+./system.log
+./application.log
+searching ERROR logs in application.log file
+    ERROR ...
+    ERROR ...
+    ERROR ...
+    ERROR ...
+Number of ERRORS logs found in application.log
+4
+Number of FATAL logs found in application.log
+2
+Number of ERRORS logs found in application.log
+1
+Number of CRITICAL logs found in system.log
+2
+CRITICAL logs in system.log
+    CRITICAL ...
+    CRITICAL ...
+    CRITICAL ...
+```
+
+#### Using Variables in Bash Scripts
+
+```bash
+$ vim analyse-logs.sh
+#!/bin/bash
+
+LOG_DIR="/home/user/logs"
+APP_LOG_FILE="application.log"
+SYS_LOG_FILE="system.log"
+
+echo "analysing log files"
+echo "==================="
+
+echo -e "/nList of log files updated in the last 24 hours"
+find $LOG_DIR -name "*.log" -mtime -1
+
+echo -e "/nsearching ERROR logs in application.log file"
+grep -c "ERROR" "$LOG_DIR/APP_LOG_FILE"
+
+echo -e "/nNumber of ERRORS logs found in application.log"
+grep -c "ERROR" "$LOG_DIR/APP_LOG_FILE"
+
+echo -e "/nNumber of FATAL logs found in application.log"
+grep -c "FATAL" "$LOG_DIR/APP_LOG_FILE"
+
+echo -e "/nNumber of ERRORS logs found in application.log"
+grep -c "FATAL" "$LOG_DIR/SYS_LOG_FILE"
+
+echo -e "/nNumber of CRITICAL logs found in system.log
+grep -c "FATAL" "$LOG_DIR/SYS_LOG_FILE"
+
+echo -e "/nNumber of CRITICAL logs found in system.log"
+grep -c "CRITICAL" "$LOG_DIR/SYS_LOG_FILE"
+
+echo -e "/nCRITICAL logs in system.log"
+grep -c "CRITICAL" "$LOG_DIR/SYS_LOG_FILE
+~
+~
+~
+~
+~
+~
+~
+~
+
+I ( Insert Mode)
+Esc
+:wq ( Enter )
+
+$ ./analyse-logs.
+analysing log files
+===================
+List of log files updated in the last 24 hours
+./system.log
+./application.log
+searching ERROR logs in application.log file
+    ERROR ...
+    ERROR ...
+    ERROR ...
+    ERROR ...
+Number of ERRORS logs found in application.log
+4
+Number of FATAL logs found in application.log
+2
+Number of ERRORS logs found in application.log
+1
+Number of CRITICAL logs found in system.log
+2
+CRITICAL logs in system.log
+    CRITICAL ...
+    CRITICAL ...
+    CRITICAL ...
+```
+
+#### Using Arrays in Bash Scripts
+
+#### Visual Studio Code
+
+```
+Explorer
+Open Editors
+analyse-logs.sh
+```
+
+```bash
+$ vim analyse-logs.sh
+#!/bin/bash
+
+LOG_DIR="/home/user/logs"
+APP_LOG_FILE="application.log"
+SYS_LOG_FILE="system.log"
+
+ERROR_PATTERNS=("ERROR" "FATAL" "CRITICAL") # [0] "ERROR", [1] "FATAL", [2] "CRITICAL"
+
+echo "analysing log files"
+echo "==================="
+
+echo -e "/nList of log files updated in the last 24 hours"
+LOGS_FILES=$(find $LOG_DIR -name "*.log" -mtime -1)
+echo "$LOGS_FILES"
+
+echo "/nsearching ERROR logs in application.log file"
+grep "${ERROR_PATTERNS[0]}" "$LOG_DIR/APP_LOG_FILE"}$" 
+
+echo -e "/nNumber of ERRORS logs found in application.log"
+grep -c "${ERROR_PATTERNS[0]}" "$LOG_DIR/APP_LOG_FILE"
+
+echo -e /nNumber of FATAL logs found in application.log"
+grep -c ${ERROR_PATTERNS[1]}" "$LOG_DIR/APP_LOG_FILE"
+
+echo -e "/nNumber of ERRORS logs found in application.log"
+grep -c ${ERROR_PATTERNS[1]}" "$LOG_DIR/SYS_LOG_FILE"
+
+echo -e "/nNumber of CRITICAL logs found in system.log
+grep -c ${ERROR_PATTERNS[1]}" "$LOG_DIR/SYS_LOG_FILE"
+
+echo -e "/nNumber of CRITICAL logs found in system.log"
+grep -c ${ERROR_PATTERNS[2]}" "$LOG_DIR/SYS_LOG_FILE"
+
+echo -e "/nCRITICAL logs in system.log"
+grep -c ${ERROR_PATTERNS[2]}" "$LOG_DIR/SYS_LOG_FILE"
+~
+~
+~
+~
+~
+~
+~
+~
+
+I ( Insert Mode)
+Esc
+:wq ( Enter )
+
+$ ./analyse-logs.
+analysing log files
+===================
+List of log files updated in the last 24 hours
+./system.log
+./application.log
+searching ERROR logs in application.log file
+    ERROR ...
+    ERROR ...
+    ERROR ...
+    ERROR ...
+Number of ERRORS logs found in application.log
+4
+Number of FATAL logs found in application.log
+2
+Number of ERRORS logs found in application.log
+1
+Number of CRITICAL logs found in system.log
+2
+CRITICAL logs in system.log
+    CRITICAL ...
+    CRITICAL ...
+    CRITICAL ...
+
+$ cat analyse-logs.sh
+#!/bin/bash
+
+LOG_DIR="/home/user/logs"
+APP_LOG_FILE="application.log"
+SYS_LOG_FILE="system.log"
+
+ERROR_PATTERNS=("ERROR" "FATAL" "CRITICAL") # [0] "ERROR", [1] "FATAL", [2] "CRITICAL"
+
+echo "analysing log files"
+echo "==================="
+
+echo -e "/nList of log files updated in the last 24 hours"
+LOGS_FILES=$(find $LOG_DIR -name "*.log" -mtime -1)
+echo "$LOGS_FILES"
+
+echo "/nsearching ERROR logs in application.log file"
+grep "${ERROR_PATTERNS[0]}" "$LOG_DIR/$APP_LOG_FILE"
+
+echo -e "/nNumber of ERRORS logs found in application.log"
+grep -c "${ERROR_PATTERNS[0]}" "$LOG_DIR/$APP_LOG_FILE"
+
+echo -e "/nNumber of FATAL logs found in application.log"
+grep -c "${ERROR_PATTERNS[1]}" "$LOG_DIR/$APP_LOG_FILE"
+
+echo -e "/nNumber of ERRORS logs found in application.log"
+grep -c "${ERROR_PATTERNS[1]}" "$LOG_DIR/$SYS_LOG_FILE"
+
+echo -e "/nNumber of CRITICAL logs found in system.log"
+grep -c "${ERROR_PATTERNS[1]}" "$LOG_DIR/$SYS_LOG_FILE"
+
+echo -e "/nNumber of CRITICAL logs found in system.log"
+grep -c "${ERROR_PATTERNS[2]}" "$LOG_DIR/$SYS_LOG_FILE"
+
+echo -e "/nCRITICAL logs in system.log"
+grep -c "${ERROR_PATTERNS[2]}" "$LOG_DIR/$SYS_LOG_FILE"
+```
+
+#### Loops in Bash Scripts
+
+> Loops are used to repeat a set of commands multiple times, either for a fixed number of times, or for every item in a list ( like a file, array or command output).
+
+```bash
+#!/bin/bash
+
+LOG_DIR="/home/user/logs"
+APP_LOG_FILE="application.log"
+SYS_LOG_FILE="system.log"
+
+ERROR_PATTERNS=("ERROR" "FATAL" "CRITICAL") # [0] "ERROR", [1] "FATAL", [2] "CRITICAL"
+
+echo "analysing log files"
+echo "==================="
+
+echo -e "/nList of log files updated in the last 24 hours"
+LOGS_FILES=$(find $LOG_DIR -name "*.log" -mtime -1)
+echo "$LOGS_FILES"
+
+for LOG_FILE in $LOG_FILES; do
+    echo "/nsearching ${ERROR_PATTERNS[0]} logs in $LOG_FILES file"
+    grep "${ERROR_PATTERNS[0]}" "$LOG_FILE"
+
+    echo -e "/nNumber of ${ERROR_PATTERNS[0]} logs found in $LOG_FILE"
+    grep -c "${ERROR_PATTERNS[0]}" "$LOG_FILE"
+
+    echo "/nsearching ${ERROR_PATTERNS[1]} logs in $LOG_FILES file"
+    grep "${ERROR_PATTERNS[1]}" "$LOG_FILE"
+
+    echo -e "/nNumber of ${ERROR_PATTERNS[1]} logs found in $LOG_FILE"
+    grep -c "${ERROR_PATTERNS[1]}" "$LOG_FILE"
+
+    echo "/nsearching ${ERROR_PATTERNS[2]} logs in $LOG_FILES file"
+    grep "${ERROR_PATTERNS[2]}" "$LOG_FILE"
+
+    echo -e "/nNumber of ${ERROR_PATTERNS[2]} logs found in $LOG_FILE"
+    grep -c "${ERROR_PATTERNS[2]}" "$LOG_FILE
+done
+
+$ analyse-logs.sh 
+analysing log files
+===================
+List of log files updated in the last 24 hours
+/home/user/logs/system.log
+/home/user/logs/application.log
+
+searching ERROR logs in /home/user/logs/system.log file
+    ERROR ...
+    ERROR ...
+    ERROR ...
+    ERROR ...
+Number of ERROR logs found in /home/user/logs/system.log
+4
+searching FATAL logs in /home/user/logs/system.log file     
+    FATAL ...
+    FATAL ...
+Number of FATAL logs found in /home/user/logs/system.log
+2
+searching CRITICAL logs in /home/user/logs/system.log file
+    CRITICAL ...
+    CRITICAL ...
+    CRITICAL ...
+Number of CRITICAL logs found in /home/user/logs/system.log
+0
+searching ERROR logs in /home/user/logs/application.log file
+    ERROR ...
+    ERROR ...
+    ERROR ...
+    ERROR ...
+Number of ERROR logs found in /home/user/logs/application.log
+4
+searching FATAL logs in /home/user/logs/application.log file
+    FATAL ...
+    FATAL ...
+Number of FATAL logs found in /home/user/logs/application.log
+2
+searching CRITICAL logs in /home/user/logs/application.log file
+    CRITICAL ...    
+    CRITICAL ...
+Number of CRITICAL logs found in /home/user/logs/application.log
+0
+```
+
+```bash
+#!/bin/bash
+
+LOG_DIR="/home/user/logs"
+APP_LOG_FILE="application.log"
+SYS_LOG_FILE="system.log"
+
+ERROR_PATTERNS=("ERROR" "FATAL" "CRITICAL") # [0] "ERROR", [1] "FATAL", [2] "CRITICAL"
+
+echo "analysing log files"
+echo "==================="
+
+echo -e "/nList of log files updated in the last 24 hours"
+LOGS_FILES=$(find $LOG_DIR -name "*.log" -mtime -1)
+echo "$LOGS_FILES"
+
+for LOG_FILE in $LOG_FILES; do
+
+    for PATTERN in ${ERROR_PATTERNS[@]}; do
+
+
+        echo "/nsearching $PATTERN logs in $LOG_FILES file"
+        grep "$PATTERN" "$LOG_FILE"
+
+        echo -e "/nNumber of $PATTERN logs found in $LOG_FILE"
+        grep -c "$PATTERN" "$LOG_FILE"
+    done
+done
+
+$ analyse-logs.sh
+analysing log files
+===================
+List of log files updated in the last 24 hours
+/home/user/logs/system.log
+/home/user/logs/application.log
+searching ERROR logs in /home/user/logs/system.log file
+    ERROR ...
+    ERROR ...
+    ERROR ...
+    ERROR ...
+Number of ERROR logs found in /home/user/logs/system.log
+4
+searching FATAL logs in /home/user/logs/system.log file
+    FATAL ...
+    FATAL ...
+Number of FATAL logs found in /home/user/logs/system.log
+2
+searching CRITICAL logs in /home/user/logs/system.log file
+    CRITICAL ...
+    CRITICAL ...
+Number of CRITICAL logs found in /home/user/logs/system.log
+0
+searching ERROR logs in /home/user/logs/application.log file
+    ERROR ...
+    ERROR ...
+    ERROR ...
+    ERROR ...
+Number of ERROR logs found in /home/user/logs/application.log
+4   
+searching FATAL logs in /home/user/logs/application.log file
+    FATAL ...
+    FATAL ...
+Number of FATAL logs found in /home/user/logs/application.log   
+2
+searching CRITICAL logs in /home/user/logs/application.log file
+    CRITICAL ...
+    CRITICAL ...
+Number of CRITICAL logs found in /home/user/logs/application.log
+0
+```
+
+```bash
+#!/bin/bash
+
+LOG_DIR="/home/user/logs"
+APP_LOG_FILE="application.log"
+SYS_LOG_FILE="system.log"
+
+ERROR_PATTERNS=("ERROR" "FATAL" "CRITICAL") # [0] "ERROR", [1] "FATAL", [2] "CRITICAL"
+
+echo "analysing log files"
+echo "==================="
+
+echo -e "/nList of log files updated in the last 24 hours"
+LOGS_FILES=$(find $LOG_DIR -name "*.log" -mtime -1)
+echo "$LOGS_FILES"
+
+for LOG_FILE in $LOG_FILES; do
+
+    echo -e "\n" 
+    echo "================================================"
+    echo "==================$LOG_FILE====================="
+    echo "================================================"
+
+    for PATTERN in ${ERROR_PATTERNS[@]}; do
+
+
+        echo "/nsearching $PATTERN logs in $LOG_FILES file"
+        grep "$PATTERN" "$LOG_FILE"
+
+        echo -e "/nNumber of $PATTERN logs found in $LOG_FILE"
+        grep -c "$PATTERN" "$LOG_FILE"
+    done
+done
+
+$ analyse-logs.sh
+analysing log files
+===================
+List of log files updated in the last 24 hours
+/home/user/logs/system.log
+/home/user/logs/application.log
+
+=======================================================
+=================home/user/logs/system.log===============
+=======================================================
+
+searching ERROR logs in /home/user/logs/system.log file
+    ERROR ...
+    ERROR ...
+    ERROR ...
+    ERROR ...
+Number of ERROR logs found in /home/user/logs/system.log
+4
+searching FATAL logs in /home/user/logs/system.log file
+    FATAL ...
+    FATAL ...
+Number of FATAL logs found in /home/user/logs/system.log
+2
+searching CRITICAL logs in /home/user/logs/system.log file
+    CRITICAL ...
+    CRITICAL ...
+Number of CRITICAL logs found in /home/user/logs/system.log
+0
+
+========================================================
+=================home/user/logs/application.log===========
+========================================================
+
+searching ERROR logs in /home/user/logs/application.log file
+    ERROR ...
+    ERROR ...
+    ERROR ...
+    ERROR ...
+Number of ERROR logs found in /home/user/logs/application.log
+4   
+searching FATAL logs in /home/user/logs/application.log file
+    FATAL ...
+    FATAL ...
+Number of FATAL logs found in /home/user/logs/application.log   
+2
+searching CRITICAL logs in /home/user/logs/application.log file
+    CRITICAL ...
+    CRITICAL ...
+Number of CRITICAL logs found in /home/user/logs/application.log
+0
+```
+
+#### Writing to a File
+
+> **Save output** to a report file
+
+> **Avoid** terminal-only output
+
+> Make it **shareable and Reusable**
+
+```bash
+#!/bin/bash
+
+LOG_DIR="/home/user/logs"
+ERROR_PATTERNS=("ERROR" "FATAL" "CRITICAL") # [0] "ERROR", [1] "FATAL", [2] "CRITICAL"
+REPORT_FILE="/home/user/logs/log_analysis_report.txt"
+
+echo "analysing log files" > "$REPORT_FILE"
+echo "===================" >> "$REPORT_FILE"
+
+echo -e "/nList of log files updated in the last 24 hours" >> "$REPORT_FILE"
+LOGS_FILES=$(find $LOG_DIR -name "*.log" -mtime -1)
+echo "$LOGS_FILES" >> "$REPORT_FILE"
+
+for LOG_FILE in $LOG_FILES; do
+
+    echo -e "\n" >> "$REPORT_FILE"
+    echo "================================================" >> "$REPORT_FILE"
+    echo "==================$LOG_FILE=====================" >> "$REPORT_FILE"
+    echo "================================================" >> "$REPORT_FILE"
+
+    for PATTERN in ${ERROR_PATTERNS[@]}; do
+
+
+        echo "/nsearching $PATTERN logs in $LOG_FILES file" >> "$REPORT_FILE"
+        grep "$PATTERN" "$LOG_FILE" >> "$REPORT_FILE"
+
+        echo -e "/nNumber of $PATTERN logs found in $LOG_FILE" >> "$REPORT_FILE"
+        grep -c "$PATTERN" "$LOG_FILE" >> "$REPORT_FILE"
+    done
+done
+
+echo -e "\nLog analysis completed and report saved in: $REPORT_FILE" 
+
+$ analyse-logs.sh
+analysing log files
+===================
+List of log files updated in the last 24 hours
+/home/user/logs/system.log
+/home/user/logs/application.log
+=======================================================
+=================home/user/logs/system.log===============
+=======================================================
+searching ERROR logs in /home/user/logs/system.log file
+    ERROR ...
+    ERROR ...
+    ERROR ...
+    ERROR ...
+Number of ERROR logs found in /home/user/logs/system.log
+4
+searching FATAL logs in /home/user/logs/system.log file
+    FATAL ...
+    FATAL ...
+Number of FATAL logs found in /home/user/logs/system.log
+2
+searching CRITICAL logs in /home/user/logs/system.log file
+    CRITICAL ...
+    CRITICAL ...
+Number of CRITICAL logs found in /home/user/logs/system.log 
+0
+========================================================
+=================home/user/logs/application.log===========
+========================================================
+searching ERROR logs in /home/user/logs/application.log file
+    ERROR ...
+    ERROR ...
+    ERROR ...
+    ERROR ...
+Number of ERROR logs found in /home/user/logs/application.log
+4
+searching FATAL logs in /home/user/logs/application.log file
+    FATAL ...
+    FATAL ...
+Number of FATAL logs found in /home/user/logs/application.log
+2
+searching CRITICAL logs in /home/user/logs/application.log file
+    CRITICAL ...
+    CRITICAL ...
+Number of CRITICAL logs found in /home/user/logs/application.log
+0
+Log analysis completed and report saved in: /home/user/logs/log_analysis_report.txt
+
+$ cat /home/user/logs/log_analysis_report.txt
+analysing log files
+===================
+List of log files updated in the last 24 hours
+/home/user/logs/system.log
+/home/user/logs/application.log
+=======================================================
+=================home/user/logs/system.log===============
+======================================================= 
+searching ERROR logs in /home/user/logs/system.log file
+    ERROR ...
+    ERROR ...
+    ERROR ...
+    ERROR ...
+Number of ERROR logs found in /home/user/logs/system.log
+4
+searching FATAL logs in /home/user/logs/system.log file
+    FATAL ...
+    FATAL ...
+Number of FATAL logs found in /home/user/logs/system.log
+2
+searching CRITICAL logs in /home/user/logs/system.log file
+    CRITICAL ...
+    CRITICAL ...
+Number of CRITICAL logs found in /home/user/logs/system.log
+0
+========================================================
+=================home/user/logs/application.log===========
+========================================================
+searching ERROR logs in /home/user/logs/application.log file
+    ERROR ...
+    ERROR ...
+    ERROR ...
+    ERROR ...
+Number of ERROR logs found in /home/user/logs/application.log
+4
+searching FATAL logs in /home/user/logs/application.log file
+    FATAL ...
+    FATAL ...
+Number of FATAL logs found in /home/user/logs/application.log
+2
+searching CRITICAL logs in /home/user/logs/application.log file
+    CRITICAL ...
+    CRITICAL ...
+Number of CRITICAL logs found in /home/user/logs/application.log
+0
+```
+
+#### Visual Studio Code
+
+log_analysis_report.txt
+```txt
+analysing log files
+===================
+List of log files updated in the last 24 hours
+/home/user/logs/system.log
+/home/user/logs/application.log
+=======================================================
+=================home/user/logs/system.log===============
+=======================================================
+searching ERROR logs in /home/user/logs/system.log file
+    ERROR ...
+    ERROR ...
+    ERROR ...
+    ERROR ...
+Number of ERROR logs found in /home/user/logs/system.log
+4
+searching FATAL logs in /home/user/logs/system.log file
+    FATAL ...
+    FATAL ...
+Number of FATAL logs found in /home/user/logs/system.log        
+2
+searching CRITICAL logs in /home/user/logs/system.log file
+    CRITICAL ...
+    CRITICAL ...
+Number of CRITICAL logs found in /home/user/logs/system.log
+0
+========================================================
+=================home/user/logs/application.log===========
+========================================================
+searching ERROR logs in /home/user/logs/application.log file
+    ERROR ...
+    ERROR ...
+    ERROR ...
+    ERROR ...
+Number of ERROR logs found in /home/user/logs/application.log
+4
+searching FATAL logs in /home/user/logs/application.log file
+    FATAL ...
+    FATAL ...
+Number of FATAL logs found in /home/user/logs/application.log
+2
+searching CRITICAL logs in /home/user/logs/application.log file
+    CRITICAL ...
+    CRITICAL ...
+Number of CRITICAL logs found in /home/user/logs/application.log
+0
+```
+
+#### Conditionals ( if statments )
+
+```bash
+#!/bin/bash
+
+LOG_DIR="/home/user/logs"
+ERROR_PATTERNS=("ERROR" "FATAL" "CRITICAL") # [0] "ERROR", [1] "FATAL", [2] "CRITICAL"
+REPORT_FILE="/home/user/logs/log_analysis_report.txt"
+
+echo "analysing log files" > "$REPORT_FILE"
+echo "===================" >> "$REPORT_FILE"
+
+echo -e "/nList of log files updated in the last 24 hours" >> "$REPORT_FILE"
+LOGS_FILES=$(find $LOG_DIR -name "*.log" -mtime -1)
+echo "$LOGS_FILES" >> "$REPORT_FILE"
+
+for LOG_FILE in $LOG_FILES; do
+
+    echo -e "\n" >> "$REPORT_FILE"
+    echo "================================================" >> "$REPORT_FILE"
+    echo "==================$LOG_FILE=====================" >> "$REPORT_FILE"
+    echo "================================================" >> "$REPORT_FILE"
+
+    for PATTERN in ${ERROR_PATTERNS[@]}; do
+
+
+        echo "/nsearching $PATTERN logs in $LOG_FILES file" >> "$REPORT_FILE"
+        grep "$PATTERN" "$LOG_FILE" >> "$REPORT_FILE"
+
+        echo -e "/nNumber of $PATTERN logs found in $LOG_FILE" >> "$REPORT_FILE"
+
+        ERROR_COUNT=$(grep -c "$PATTERN" "$LOG_FILE")
+        echo $ERROR_COUNT >> "$REPORT_FILE"
+    
+        if ["#ERROR_COUNT" -gt 10 ]; then
+            echo -e "\n  ⚠ Action Required: Too many $PATTERN issues in log file $LOG_FILE" 
+        fi
+    done
+done
+
+echo -e "\nLog analysis completed and report saved in: $REPORT_FILE" 
+
+$ analyse-logs.sh
+
+    ⚠ Action Required: Too many ERROR errors in log file /home/user/logs/system.log
+
+log analysis completed and report saved in: /home/user/logs/log_analysis_report.txt
+```
+
+
+

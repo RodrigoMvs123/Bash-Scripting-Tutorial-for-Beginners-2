@@ -1,0 +1,11 @@
+2023-01-01 10:00:01 INFO Application started successfully
+2023-01-01 10:05:15 ERROR Failed to connect to database
+2023-01-01 10:05:16 ERROR Connection timeout occurred
+2023-01-01 10:10:30 WARN Low memory warning
+2023-01-01 10:15:45 ERROR Authentication failed for user
+2023-01-01 10:20:00 INFO User logged in successfully
+2023-01-01 10:25:15 FATAL System crash detected
+2023-01-01 10:30:30 ERROR File not found exception
+2023-01-01 10:35:45 CRITICAL Security breach detected
+2023-01-01 10:40:00 INFO System recovery initiated
+2023-01-01 10:45:15 FATAL Memory allocation failed

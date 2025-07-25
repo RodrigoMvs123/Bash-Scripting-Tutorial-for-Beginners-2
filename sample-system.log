@@ -1,0 +1,10 @@
+2023-01-01 09:00:01 INFO System boot completed
+2023-01-01 09:15:30 ERROR Network interface down
+2023-01-01 09:20:45 WARN Disk space running low
+2023-01-01 09:25:00 ERROR Service failed to start
+2023-01-01 09:30:15 INFO Service restarted successfully
+2023-01-01 09:35:30 FATAL Kernel panic occurred
+2023-01-01 09:40:45 ERROR Permission denied
+2023-01-01 09:45:00 INFO Backup completed
+2023-01-01 09:50:15 FATAL Hardware failure detected
+2023-01-01 09:55:30 CRITICAL System overheating
