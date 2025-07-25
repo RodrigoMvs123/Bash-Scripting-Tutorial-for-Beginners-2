@@ -1,35 +1,39 @@
-# AWS-Project---Architect-and-Build-an-End-to-End-AWS-Web-Application-from-Scratch-Step-by-Step
+## AWS-Project---Architect-and-Build-an-End-to-End-AWS-Web-Application-from-Scratch-Step-by-Step
 
-https://raw.githubusercontent.com/RodrigoMvs123/AWS-Project---Architect-and-Build-an-End-to-End-AWS-Web-Application-from-Scratch-Step-by-Step/main/README.md
+- https://raw.githubusercontent.com/RodrigoMvs123/AWS-Project---Architect-and-Build-an-End-to-End-AWS-Web-Application-from-Scratch-Step-by-Step/main/README.md
 
-https://github.com/RodrigoMvs123/AWS-Project---Architect-and-Build-an-End-to-End-AWS-Web-Application-from-Scratch-Step-by-Step/blame/main/README.md
+- https://github.com/RodrigoMvs123/AWS-Project---Architect-and-Build-an-End-to-End-AWS-Web-Application-from-Scratch-Step-by-Step/blame/main/README.md
 
-https://www.youtube.com/watch?v=7m_q1ldzw0U 
+- https://www.youtube.com/watch?v=7m_q1ldzw0U 
 
-https://pages.awscloud.com/traincert-developer-hub.html?sc_channel=sm&sc_campaign=AWS_Training_and_Certification&sc_publisher=LINKEDIN&sc_country=AWS%20Training%20&%20Certification&sc_geo=GLOBAL&sc_outcome=adoption&trkCampaign=GLBL-FY21-TrainCert_OrganicSocial_LinkedIn_Developer&trk=1689c1a5-9024-4b68-ba54-5cb83bed71a0_LINKEDIN&sc_content=Developer&sc_category=AWS%20Training%20and%20Certification
+- https://pages.awscloud.com/traincert-developer-hub.html?sc_channel=sm&sc_campaign=AWS_Training_and_Certification&sc_publisher=LINKEDIN&sc_country=AWS%20Training%20&%20Certification&sc_geo=GLOBAL&sc_outcome=adoption&trkCampaign=GLBL-FY21-TrainCert_OrganicSocial_LinkedIn_Developer&trk=1689c1a5-9024-4b68-ba54-5cb83bed71a0_LINKEDIN&sc_content=Developer&sc_category=AWS%20Training%20and%20Certification
 
-Aws Aplify
-Aws Lambda
-Amazon API Gateway
-Amazon DynamoDB
-Aws Identity and  Access Management ( IAM )
+### AWS Services Used
+- Aws Aplify
+- Aws Lambda
+- Amazon API Gateway
+- Amazon DynamoDB
+- Aws Identity and Access Management ( IAM )
 
-A way to create/host web page
-A way to invoke the math functionality 
-A way to do some math
-Somewhere to store/return the math result
-A way to handle permissions
+### Application Requirements
+- A way to create/host web page
+- A way to invoke the math functionality 
+- A way to do some math
+- Somewhere to store/return the math result
+- A way to handle permissions
 
-A way to create/host web page
+### A way to create/host web page
 
-The Application Architecture 
+#### The Application Architecture 
 Amplify
 Used to build and host websites ( but we will use a text editor to create a simple index.html page )
-Index.html ( File ) 
+
+#### Index.html ( File ) 
+```html
 <!DOCTYPE>
 <html>
 <head>
-       <meta charset=“UTF-8”>
+       <meta charset="UTF-8">
        <title>To the Power of Math</title>
 </head>
 
@@ -37,11 +41,12 @@ Index.html ( File )
        To the Power of Math!
 </body>
 </html>
+```
 
 index.html
 index.zip
 
-Aws Console
+#### Aws Console
 Console Home
 Search ( Aws Amplify )
 New App
@@ -57,7 +62,7 @@ Environment name ( dev )
 Drag and Drop ( - index.zip )
 Save and deploy
 
-PowerOfMath 
+#### PowerOfMath 
 The app homepage lists all deployed frontend and backend environments.
 Hosting environments
 This tab lists all connected branches, selecting a branch to view build details.
@@ -66,17 +71,17 @@ Dev
       Deployment successfully completed
       Domain https://dev.d26u2yadfw1boy.aplifyapp.com             Last deployment 
 
-Aws Aplify 
+#### Aws Aplify 
 App settings
 Domain management 
 
-The Current Architecture 
+### The Current Architecture 
 User 
 Web Page
 Amplify 
 Lambda ( Code that runs (serverlessly) upon some trigger
 
-Python Math Library
+#### Python Math Library
 
 Console Home
 Search ( Lambda )
@@ -88,10 +93,10 @@ Basic information
 Function name ( PowerOfMathFunction )
 Runtime ( Python 3.9 )                                 Create function
 
-PowerOfMathFunction
+#### PowerOfMathFunction
 Code source                ( Deploy )
 
-lambda_function
+```python
 # import the JSON utility package
 import json
 # import the Python math library
@@ -108,6 +113,7 @@ def lambda_handler(event, context):
     'statusCode': 200,
     'body': json.dumps('Your result is ' + str(mathResult))
     }
+```
 
 Deploy 
 Successfully updated the function PowerOfMathFunction
@@ -116,27 +122,31 @@ Configure test event
 Configure test event
 Event name ( PowerOfMathFunction )
 Event JSON
+```json
 {
-       “base”: 2,
-       “exponent”: 3
+       "base": 2,
+       "exponent": 3
 }
+```
 Save 
 Test 
 Test Event Name
 PowerOfMathFunction
 Response
+```json
 {
-       “statusCode”:  200,
-       “body”: “\ “ Your result is 8.0\” “ 
+       "statusCode":  200,
+       "body": "\" Your result is 8.0\" " 
 }
+```
 Function Logs
 …
 Request ID
 …
 
-A way to invoke the math functionality 
+### A way to invoke the math functionality 
 
-The Application Architecture 
+#### The Application Architecture 
 User 
 Web Page
 Amplify 
@@ -175,7 +185,7 @@ Add Permission to Lambda Function
 You are about to give API Gateway permission to invoke your Lambda function. 
 Ok
 
-Cors origin resource sharing   
+#### Cors origin resource sharing   
 Resources
 /
 POST 
@@ -196,7 +206,7 @@ Stage name
 dev
 Deploy 
 
-dev Stage Editor
+#### dev Stage Editor
 Invoke URL: https://xs7a22nv22.execute-api-us-west-2-amazonaws.com/dev ( API Gateway )
 
 Resources
@@ -221,34 +231,38 @@ Client  <-
 Test
 Post Method Test
 Request Body
+```json
 {
-       “base”: 2,
-       “exponent”: 4
+       "base": 2,
+       "exponent": 4
 }
+```
 Test
 
 Request: /
 Status: 200
 Latency: 234 ms
 ResponseBody
+```json
 {
-     “statusCode”:  200,
-      “body”: “\ “ Your result is 16.0\” “ 
+     "statusCode":  200,
+      "body": "\" Your result is 16.0\" " 
 
 }
+```
 Response Headers
 ..
 Logs
 …
 
-The Application Architecture 
+### The Application Architecture 
 User 
 Web Page
 Amplify 
 API Gateway ( Used to build, HTTP, REST and WebSocket APIs )
 Lambda ( Code that runs (serverlessly) upon some trigger
 IAM ( Set permissions on the execution role for Lambda )
-DynamoDB ( A key-value “NoSQL” database )
+DynamoDB ( A key-value "NoSQL" database )
 
 Console Home
 Search ( DynamoDB )
@@ -268,15 +282,17 @@ Additional info
 Amazon Resource Name (ARN ) 
 arn:aws-dynamodb-us-west-2:324712927967-table/PowerOfMathDatabase
 
-Lambda UI 
+#### Lambda UI 
 Code
 Test Event Name
 PowerOfMathFunction
 Response
+```json
 {
-       “statusCode”:  200,
-       “body”: “\ “ Your result is 8.0\” “ 
+       "statusCode":  200,
+       "body": "\" Your result is 8.0\" " 
 }
+```
 Function Logs
 …
 Request ID
@@ -292,6 +308,7 @@ Add permissions
 Create inline policy
 Create policy
 JSON
+```json
 {
 "Version": "2012-10-17",
 "Statement": [
@@ -311,17 +328,18 @@ JSON
     }
     ]
 }
+```
 
 Review policy
 Name
 PowerOfMathDynamoPolice
 Create policy
 
-Lambda UI
+#### Lambda UI
 PowerOfMathFunction
 Code source                ( Deploy )
 
-lambda_function
+```python
 # import the JSON utility package
 import json
 # import the Python math library
@@ -357,34 +375,42 @@ def lambda_handler(event, context):
     'statusCode': 200,
     'body': json.dumps('Your result is ' + str(mathResult))
     }
+```
 
 Deploy 
 Successfully updated the function PowerOfMathFunction
 Test
+```json
 {
-       “base”: 2,
-       “exponent”: 3
+       "base": 2,
+       "exponent": 3
 }
+```
 Save 
 Test 
 Test Event Name
 PowerOfMathTestEvent
 Response
+```json
 {
-       “statusCode”:  200,
-       “body”: “\ “ Your result is 8.0\” “ 
+       "statusCode":  200,
+       "body": "\" Your result is 8.0\" " 
 }
+```
 Function Logs
 …
 Request ID
 …
 
-DynamoDB UI
+#### DynamoDB UI
 PowerOfMathDatabase
 Explore table items
 Items returned
 8.0 Thu, 23 jun 2022 00:25:22 + 0000
 
+### Complete Web Application
+
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -463,8 +489,9 @@ Items returned
     </form>
 </body>
 </html>
+```
 
-Amplify UI
+#### Amplify UI
 PowerOfMath
 Index.zip ( Drop file here )
 Domain
@@ -472,11 +499,11 @@ https://dev.d26u2yadfw1boy.apliflyapp.com
 
 TO THE POWER OF MATH
 Base number: 2   …to the power of:   8   CAUCULATE
-“Your result is 256.0”
+"Your result is 256.0"
 
-Shut Down Your Resources
+### Shut Down Your Resources
 
-Amplify UI
+#### Amplify UI
 Actions
 Delete app
 Delete your app ?
@@ -484,7 +511,7 @@ To confirm you want to delete app type delete in the field.
 Delete
 Delete
 
-DynamoDB
+#### DynamoDB
 Tables
 PowerOfMathDatabase
 Delete
@@ -493,7 +520,7 @@ To confirm the deletion of this table. type delete in the box.
 Delete
 Delete table
 
-Lambda UI
+#### Lambda UI
 Functions
 PowerOfMathFunction
 Actions 
@@ -502,7 +529,7 @@ Delete
 Delete
 Close
 
-Amazon API Gateway 
+#### Amazon API Gateway 
 APIs
 PowerOfMath
 Actions
@@ -511,9 +538,3 @@ Delete API
 Permanently delete the PowerOfMathAPI API?
 This actions can´t be undone. Clientes will no longer to be able to reach its endpoints.
 Delete
-
-
-
-
- 
-
