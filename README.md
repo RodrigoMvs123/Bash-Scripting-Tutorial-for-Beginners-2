@@ -1,7 +1,5 @@
 ## Bash Scripting Tutorial for Beginners 2  
 
-49:00
-
 - https://www.youtube.com/watch?v=PNhq_4d-5ek 
 
 #### Setting Up 
